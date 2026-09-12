@@ -16,28 +16,11 @@ const DAY_GROUPS: { id: DayGroup; label: string }[] = [
   { id: "sunday", label: "Sunday" },
 ];
 
-const FALLBACK_WEEKDAY_PROGRAMS = [
-  { title: "Early Morning Worship", host: "Asriel Radio", start_time: "00:00:00", end_time: "06:00:00" },
-  { title: "Morning Deep Dive", host: "Valentine Achieng", start_time: "06:00:00", end_time: "09:00:00" },
-  { title: "Prophetic Insight", host: "Prophet Samo Mtishiby", start_time: "09:00:00", end_time: "09:30:00" },
-  { title: "Faith Fuel", host: "The Peace Captain", start_time: "09:30:00", end_time: "12:30:00" },
-  { title: "Prophetic Insight", host: "Prophet Samo Mtishiby", start_time: "12:30:00", end_time: "13:30:00" },
-  { title: "GenZ for Christ", host: "Brother Moses", start_time: "13:30:00", end_time: "16:00:00" },
-  { title: "Prophetic Insight", host: "Prophet Samo Mtishiby", start_time: "16:00:00", end_time: "16:30:00" },
-  { title: "Shangilia", host: "Brother Stallon", start_time: "16:30:00", end_time: "19:00:00" },
-  { title: "Family Talk", host: "Prophet Samo Mtishiby", start_time: "19:00:00", end_time: "20:00:00" },
-  { title: "Night of Worship", host: "Asriel Radio", start_time: "20:00:00", end_time: "23:59:59" },
-];
-
-const FALLBACK_SATURDAY_PROGRAMS = [
-  { title: "Purely Worship", host: "Asriel Radio", start_time: "00:00:00", end_time: "23:59:59" },
-];
-
-const FALLBACK_SUNDAY_PROGRAMS = [
-  { title: "Morning Worship", host: "Asriel Radio", start_time: "00:00:00", end_time: "05:30:00" },
-  { title: "Charge Your Morning", host: "Prophet Dr Samo Mtishiby", start_time: "05:30:00", end_time: "08:00:00" },
-  { title: "Purely Worship", host: "Asriel Radio", start_time: "08:00:00", end_time: "23:59:59" },
-];
+import {
+  FALLBACK_WEEKDAY_PROGRAMS,
+  FALLBACK_SATURDAY_PROGRAMS,
+  FALLBACK_SUNDAY_PROGRAMS,
+} from "@/lib/fallback-schedule";
 
 export default function ScheduleView({ initialPrograms }: ScheduleViewProps) {
   const [stationTime, setStationTime] = useState({ dayOfWeek: 1, timeString: "12:00:00" });

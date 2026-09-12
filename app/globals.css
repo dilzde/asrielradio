@@ -739,6 +739,8 @@ main {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 72px 32px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .content-grid {
@@ -746,10 +748,19 @@ main {
   grid-template-columns: 1.65fr 1fr;
   gap: 48px;
   align-items: start;
+  width: 100%;
+  max-width: 100%;
+}
+
+.content-grid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .section-head {
   margin-bottom: 32px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .section-head .eyebrow {
@@ -767,6 +778,8 @@ main {
   margin-bottom: 6px;
   font-weight: 600;
   letter-spacing: -0.015em;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .section-head p {
@@ -774,12 +787,23 @@ main {
   font-size: 15.5px;
   font-weight: 400;
   font-family: var(--font);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.schedule-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .schedule-tabs {
   display: flex;
   gap: 8px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  width: 100%;
   padding-bottom: 14px;
   margin-top: 20px;
   margin-bottom: 8px;
@@ -1344,16 +1368,19 @@ footer.site-footer {
 
 @media (max-width: 900px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 36px;
+    width: 100%;
   }
   .content-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    width: 100%;
   }
   .hero-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+    width: 100%;
   }
 }
 
@@ -1492,49 +1519,124 @@ footer.site-footer {
   }
 
   .section {
-    padding: 44px 16px;
+    padding: 36px 14px;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .content-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .schedule-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+    margin-top: 14px;
+  }
+
+  .schedule-tab-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    gap: 5px;
+  }
+
+  .schedule-tab-badge {
+    font-size: 9.5px;
+    padding: 1.5px 5px;
   }
 
   .schedule-row {
-    gap: 10px;
-    padding: 14px 4px;
+    gap: 8px;
+    padding: 12px 0;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
   }
 
   .schedule-time {
-    width: 62px;
+    width: 52px;
     flex-shrink: 0;
   }
 
   .schedule-time b {
-    font-size: 16px;
+    font-size: 14.5px;
+    line-height: 1.1;
+  }
+
+  .schedule-time span {
+    font-size: 10px;
   }
 
   .schedule-info {
     min-width: 0;
     flex: 1;
+    padding-right: 4px;
   }
 
   .schedule-info h4 {
-    font-size: 14.5px;
+    font-size: 13.5px;
+    line-height: 1.25;
     word-break: break-word;
     overflow-wrap: break-word;
   }
 
   .schedule-info span {
-    font-size: 12.5px;
+    font-size: 11.5px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .schedule-row > div:last-child {
+    flex-shrink: 0;
+    margin-left: auto;
   }
 
   .tag {
-    padding: 4px 8px;
-    font-size: 10.5px;
+    padding: 3px 6px;
+    font-size: 9.5px;
+    flex-shrink: 0;
   }
 
   .tv-block.lively-tv {
-    padding: 22px 16px;
-    gap: 16px;
+    padding: 20px 14px;
+    gap: 14px;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .tv-content {
+    min-width: 0;
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tv-block.lively-tv h3 {
+    font-size: 18px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .tv-block.lively-tv p {
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 
   .btn-youtube-live {

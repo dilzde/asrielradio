@@ -1,22 +1,22 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getStationTime, timeToMinutes } from "@/lib/time";
 import type { Program } from "@/lib/actions/programs";
+import { getFallbackPrograms } from "@/lib/fallback-schedule";
 
 interface LiveHeroStatusProps {
-  todaysPrograms: Program[];
+  todaysPrograms?: Program[];
   fallbackTitle?: string;
 }
 
 export default function LiveHeroStatus({
   todaysPrograms,
-  fallbackTitle = "News & Partnership Impact",
+  fallbackTitle = "Morning Worship",
 }: LiveHeroStatusProps) {
   const [mounted, setMounted] = useState(false);
   const [currentShow, setCurrentShow] = useState<Program | null>(null);
-  const [progressPercent, setProgressPercent] = useState(45);
-  const [timeRange, setTimeRange] = useState({ start: "03:30 PM", end: "04:30 PM" });
+  const [progressPercent, setProgressPercent] = useState(25);
+  const [timeRange, setTimeRange] = useState({ start: "12:00 AM", end: "05:30 AM" });
 
   const format12h = (hhmmss: string) => {
     const parts = hhmmss.split(":");
@@ -35,42 +35,42 @@ export default function LiveHeroStatus({
     const station = getStationTime();
     const nowMins = timeToMinutes(station.timeString);
 
-    if (todaysPrograms && todaysPrograms.length > 0) {
-      const currentDayPrograms = todaysPrograms.filter(
-        (p) => p.day_of_week === station.dayOfWeek
+    const available = todaysPrograms && todaysPrograms.length > 0
+      ? todaysPrograms
+      : getFallbackPrograms(station.dayOfWeek);
+
+    const currentDayPrograms = available.filter(
+      (p) => p.day_of_week === station.dayOfWeek
+    );
+    const targetList = currentDayPrograms.length > 0 ? currentDayPrograms : available;
+
+    let active = targetList.find((p) => {
+      const s = timeToMinutes(p.start_time);
+      let e = timeToMinutes(p.end_time);
+      if (p.end_time.startsWith("23:59")) e = 1440;
+      return nowMins >= s && nowMins < e;
+    });
+
+    if (!active) {
+      const pastShows = targetList.filter(
+        (p) => timeToMinutes(p.end_time) <= nowMins
       );
-      const targetList = currentDayPrograms.length > 0 ? currentDayPrograms : todaysPrograms;
+      active = pastShows[pastShows.length - 1] || targetList[0];
+    }
 
-      let active = targetList.find((p) => {
-        const s = timeToMinutes(p.start_time);
-        let e = timeToMinutes(p.end_time);
-        if (p.end_time.startsWith("23:59")) e = 1440;
-        return nowMins >= s && nowMins < e;
+    if (active) {
+      setCurrentShow(active);
+      const startM = timeToMinutes(active.start_time);
+      let endM = timeToMinutes(active.end_time);
+      if (active.end_time.startsWith("23:59")) endM = 1440;
+      const total = endM > startM ? endM - startM : 60;
+      const elapsed = Math.max(0, nowMins - startM);
+      const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+      setProgressPercent(pct);
+      setTimeRange({
+        start: format12h(active.start_time),
+        end: format12h(active.end_time),
       });
-
-      if (!active) {
-        // Fallback: past show or first show
-        const pastShows = targetList.filter(
-          (p) => timeToMinutes(p.end_time) <= nowMins
-        );
-        active = pastShows[pastShows.length - 1] || targetList[0];
-      }
-
-      if (active) {
-        setCurrentShow(active);
-        const startM = timeToMinutes(active.start_time);
-        let endM = timeToMinutes(active.end_time);
-        if (active.end_time.startsWith("23:59")) endM = 1440;
-        const total = endM > startM ? endM - startM : 60;
-        const elapsed = nowMins - startM;
-        const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
-        setProgressPercent(pct);
-        setTimeRange({
-          start: format12h(active.start_time),
-          end: format12h(active.end_time),
-        });
-        return;
-      }
     }
   };
 
@@ -85,12 +85,12 @@ export default function LiveHeroStatus({
     return (
       <div style={{ opacity: 0 }}>
         <h1>
-          News &amp; Partnership <em>Impact</em>
+          Morning <em>Worship</em>
         </h1>
         <div className="hero-meta">
-          <span>03:30 PM</span>
+          <span>12:00 AM</span>
           <div className="hero-progress" />
-          <span>04:30 PM</span>
+          <span>05:30 AM</span>
         </div>
       </div>
     );

@@ -11,6 +11,7 @@ import ScheduleView from "@/components/shared/ScheduleView";
 import WhatsAppInvite from "@/components/shared/WhatsAppInvite";
 import { FaYoutube } from "react-icons/fa6";
 import type { Program } from "@/lib/actions/programs";
+import { getAllFallbackPrograms } from "@/lib/fallback-schedule";
 
 export const revalidate = 60; // 1-minute ISR
 
@@ -24,11 +25,18 @@ export default async function HomePage() {
       .order("day_of_week", { ascending: true })
       .order("start_time", { ascending: true });
 
-    if (data) {
+    if (data && data.length > 0) {
       programs = data as Program[];
+    } else {
+      programs = getAllFallbackPrograms();
     }
   } catch (error) {
     console.warn("Could not load programs from Supabase, using defaults:", error);
+    programs = getAllFallbackPrograms();
+  }
+
+  if (!programs || programs.length === 0) {
+    programs = getAllFallbackPrograms();
   }
 
   const settings = await getSettings();
@@ -49,7 +57,7 @@ export default async function HomePage() {
           <div>
             <LiveHeroStatus
               todaysPrograms={programs}
-              fallbackTitle="News & Partnership Impact"
+              fallbackTitle="Morning Worship"
             />
 
             <p className="desc">
