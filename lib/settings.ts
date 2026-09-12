@@ -2,7 +2,7 @@
 // lib/settings.ts  –  React.cache() Supabase settings loader
 // ────────────────────────────────────────────────────────
 import { cache } from "react";
-import { createServerClient } from "./supabase/server";
+import { createPublicClient } from "./supabase/public";
 import {
   STREAM_URL,
   METADATA_URL,
@@ -30,13 +30,12 @@ const DEFAULTS: Record<string, string> = {
 export const getSettings = cache(
   async (): Promise<Record<string, string>> => {
     try {
-      const supabase = await createServerClient();
+      const supabase = createPublicClient();
       const { data, error } = await supabase
         .from("settings")
         .select("key, value");
 
       if (error || !data) {
-        console.warn("Settings fetch failed, using defaults:", error?.message);
         return { ...DEFAULTS };
       }
 
@@ -47,8 +46,7 @@ export const getSettings = cache(
         }
       }
       return settings;
-    } catch (err) {
-      console.warn("Settings fetch error, using defaults:", err);
+    } catch {
       return { ...DEFAULTS };
     }
   }

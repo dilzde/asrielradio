@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# asrielradio
 
-## Getting Started
+**Asriel Radio 24/7 — The Digital Sanctuary**
 
-First, run the development server:
+Streaming uninterrupted gospel music, prophetic ministry, and spiritual teachings worldwide 24 hours a day, 7 days a week from Nairobi, Kenya. Under the spiritual leadership of Prophet Dr. Samo Mtishiby (VPM International).
+
+---
+
+## 🎧 Features
+
+- **Live 24/7 Audio Streaming**: Seamless connection to the live ZenoFM stream.
+- **Floating Audio Player**: Persistent, non-intrusive floating play pill with real-time status and TV/AirPlay casting capabilities.
+- **Now Playing Metadata**: Real-time SSE updates for current songs and ministering hosts.
+- **Dynamic Program Schedule**: Weekly schedules grouped by weekdays and weekends, tracking the live on-air show and progress.
+- **Social Media Hub**: Instant direct links to official YouTube, TikTok, Instagram, and WhatsApp channels.
+- **Asriel 24/7 Live Always**: Dedicated video broadcast section linking to the official YouTube channel.
+- **Admin Dashboard**: Secure management interface powered by Supabase for broadcast scheduling and station settings.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Vanilla CSS Design System with Apple SF Pro native aesthetics
+- **Database & Auth**: Supabase (PostgreSQL + Auth SSR)
+- **Deployment**: Vercel
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/dilzde/asrielradio.git
+cd asrielradio
+npm install
+```
+
+### 2. Environment Variables
+
+Create `.env.local` based on `.env.example`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-## Learn More
+## ☁️ Deploy on Vercel
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this repository to GitHub.
+2. Import the project into Vercel.
+3. Add the Supabase environment variables in **Vercel Settings → Environment Variables**.
+4. Deploy!
