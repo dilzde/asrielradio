@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import dynamic from "next/dynamic";
-import playerState from "@/lib/player-state";
+import CastButton from "./CastButton";
 import { STREAM_URL } from "@/lib/constants";
-
-const CastButton = dynamic(() => import("./CastButton"), { ssr: false });
+import playerState from "@/lib/player-state";
 
 interface GlobalPlayerProps {
   streamUrl?: string;

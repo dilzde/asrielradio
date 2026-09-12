@@ -34,9 +34,9 @@ const FALLBACK_SATURDAY_PROGRAMS = [
 ];
 
 const FALLBACK_SUNDAY_PROGRAMS = [
-  { title: "Morning Worship", host: "Asriel Radio", start_time: "00:00:00", end_time: "06:00:00" },
-  { title: "Charge Your Morning", host: "Prophet Dr Samo Mtishiby", start_time: "06:00:00", end_time: "09:00:00" },
-  { title: "Purely Worship", host: "Asriel Radio", start_time: "09:00:00", end_time: "23:59:59" },
+  { title: "Morning Worship", host: "Asriel Radio", start_time: "00:00:00", end_time: "05:30:00" },
+  { title: "Charge Your Morning", host: "Prophet Dr Samo Mtishiby", start_time: "05:30:00", end_time: "08:00:00" },
+  { title: "Purely Worship", host: "Asriel Radio", start_time: "08:00:00", end_time: "23:59:59" },
 ];
 
 export default function ScheduleView({ initialPrograms }: ScheduleViewProps) {
