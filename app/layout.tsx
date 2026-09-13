@@ -58,6 +58,14 @@ export const metadata: Metadata = {
     description: "Streaming gospel music and prophetic ministry 24/7.",
     images: ["/asrielradio.jpeg"],
   },
+  icons: {
+    icon: [
+      { url: "/asrielradio.jpeg", sizes: "any" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/asrielradio.jpeg",
+    apple: "/asrielradio.jpeg",
+  },
 };
 
 export default async function RootLayout({
