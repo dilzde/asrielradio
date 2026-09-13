@@ -30,7 +30,7 @@ const SOCIAL_LINKS: SocialLinkItem[] = [
   },
   {
     name: "WhatsApp",
-    url: "https://wa.me/254794731831",
+    url: "https://wa.me/254116304484",
     icon: <FaWhatsapp size={28} />,
     colorClass: "social-btn-wa",
   },

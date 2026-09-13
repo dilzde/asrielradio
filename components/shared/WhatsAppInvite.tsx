@@ -12,8 +12,9 @@ export default function WhatsAppInvite({
   label = "Message us on WhatsApp",
   className = "btn-whatsapp",
 }: WhatsAppInviteProps) {
-  const cleanNumber = number.replace(/[^0-9]/g, "");
-  const whatsappUrl = `https://wa.me/${cleanNumber}?text=Hello%20Asriel%20Radio%2024%2F7%2C%20I%20am%20listening%20live!`;
+  const digits = number.replace(/[^0-9]/g, "");
+  const waPhone = digits.startsWith("0") ? "254" + digits.slice(1) : digits;
+  const whatsappUrl = `https://wa.me/${waPhone}?text=Hello%20Asriel%20Radio%2024%2F7%2C%20I%20am%20listening%20live!`;
 
   return (
     <a

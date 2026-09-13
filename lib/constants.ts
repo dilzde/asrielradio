@@ -11,7 +11,7 @@ export const METADATA_URL =
 export const ZENO_RSS =
   "https://feeds.zenofm.com/iy8v0envboitv/podcast.rss";
 
-export const WA_NUMBER = "254794731831";
+export const WA_NUMBER = "0116304484";
 
 export const YOUTUBE_LIVE_ID = "NNFUI2UFMag";
 
@@ -40,12 +40,14 @@ export const TIKTOK_URL =
 export const INSTAGRAM_URL =
   "https://www.instagram.com/vpmintl?stkn=dmhlcGdmamJmaG9l";
 
-export const WHATSAPP_URL = "https://wa.me/254794731831";
+export const WHATSAPP_URL = "https://wa.me/254116304484";
 
 /** Merge DB settings with hardcoded fallbacks for social links */
 export function getFormattedSocialLinks(
   settings: Record<string, string>
 ): { name: string; url: string }[] {
+  const rawNum = (settings.wa_number || WA_NUMBER).replace(/[^0-9]/g, "");
+  const waNum = rawNum.startsWith("0") ? "254" + rawNum.slice(1) : rawNum;
   const links = [
     {
       name: "YouTube",
@@ -61,7 +63,7 @@ export function getFormattedSocialLinks(
     },
     {
       name: "WhatsApp",
-      url: `https://wa.me/${settings.wa_number || WA_NUMBER}`,
+      url: `https://wa.me/${waNum}`,
     },
   ];
   return links;

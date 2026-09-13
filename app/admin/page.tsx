@@ -87,7 +87,7 @@ export default async function AdminDashboardPage() {
             WhatsApp Hotline
           </div>
           <div style={{ fontSize: "24px", fontWeight: 700, color: "#1C1208", marginTop: "10px" }}>
-            +{settings.wa_number || WA_NUMBER}
+            {(settings.wa_number || WA_NUMBER).startsWith("0") ? (settings.wa_number || WA_NUMBER) : "+" + (settings.wa_number || WA_NUMBER)}
           </div>
           <div style={{ fontSize: "12px", color: "#9CA3AF", marginTop: "6px" }}>
             Listener contact &amp; guest bookings

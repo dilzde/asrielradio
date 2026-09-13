@@ -33,7 +33,7 @@ export default function Footer({ settings = {} }: FooterProps) {
     },
     {
       name: "WhatsApp",
-      url: `https://wa.me/${settings.wa_number || "254794731831"}`,
+      url: `https://wa.me/${(settings.wa_number || "0116304484").replace(/[^0-9]/g, "").replace(/^0/, "254")}`,
       icon: <FaWhatsapp size={19} />,
       colorClass: "footer-icon-wa",
     },
