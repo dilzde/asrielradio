@@ -11,12 +11,38 @@ interface LiveHeroStatusProps {
 
 export default function LiveHeroStatus({
   todaysPrograms,
-  fallbackTitle = "Morning Worship",
+  fallbackTitle = "Charge Your Morning",
 }: LiveHeroStatusProps) {
   const [mounted, setMounted] = useState(false);
-  const [currentShow, setCurrentShow] = useState<Program | null>(null);
+  const [currentShow, setCurrentShow] = useState<Program | null>(() => {
+    const station = getStationTime();
+    const nowMins = timeToMinutes(station.timeString);
+    const available = todaysPrograms && todaysPrograms.length > 0
+      ? todaysPrograms
+      : getFallbackPrograms(station.dayOfWeek);
+
+    const currentDayPrograms = available.filter(
+      (p) => p.day_of_week === station.dayOfWeek
+    );
+    const targetList = currentDayPrograms.length > 0 ? currentDayPrograms : available;
+
+    let active = targetList.find((p) => {
+      const s = timeToMinutes(p.start_time);
+      let e = timeToMinutes(p.end_time);
+      if (p.end_time.startsWith("23:59")) e = 1440;
+      return nowMins >= s && nowMins < e;
+    });
+
+    if (!active) {
+      const pastShows = targetList.filter(
+        (p) => timeToMinutes(p.end_time) <= nowMins
+      );
+      active = pastShows[pastShows.length - 1] || targetList[0];
+    }
+    return active || null;
+  });
   const [progressPercent, setProgressPercent] = useState(25);
-  const [timeRange, setTimeRange] = useState({ start: "12:00 AM", end: "05:30 AM" });
+  const [timeRange, setTimeRange] = useState({ start: "05:30 AM", end: "08:00 AM" });
 
   const format12h = (hhmmss: string) => {
     const parts = hhmmss.split(":");
@@ -84,8 +110,9 @@ export default function LiveHeroStatus({
   if (!mounted) {
     return (
       <div style={{ opacity: 0 }}>
-        <h1>
-          Morning <em>Worship</em>
+        <h1 className="hero-title">
+          <span className="hero-title-line1">Morning</span>
+          <span className="hero-title-line2">Worship</span>
         </h1>
         <div className="hero-meta">
           <span>12:00 AM</span>
@@ -97,17 +124,29 @@ export default function LiveHeroStatus({
   }
 
   const title = currentShow ? currentShow.title : fallbackTitle;
-  const words = title.split(" ");
-  const line1 = words.slice(0, Math.max(1, words.length - 1)).join(" ");
-  const line2 = words.length > 1 ? words[words.length - 1] : "";
+  const words = title.trim().split(/\s+/);
+  let line1 = title;
+  let line2 = "";
+  if (words.length === 2) {
+    line1 = words[0];
+    line2 = words[1];
+  } else if (words.length === 3) {
+    line1 = words[0];
+    line2 = words.slice(1).join(" ");
+  } else if (words.length > 3) {
+    const mid = Math.ceil(words.length / 2);
+    line1 = words.slice(0, mid).join(" ");
+    line2 = words.slice(mid).join(" ");
+  }
 
   return (
     <>
       <div className="eyebrow">
         <span className="bar" /> Broadcasting live from Nairobi
       </div>
-      <h1>
-        {line1} {line2 && <em>{line2}</em>}
+      <h1 className="hero-title">
+        <span className="hero-title-line1">{line1}</span>
+        {line2 && <span className="hero-title-line2">{line2}</span>}
       </h1>
 
       <div className="hero-meta">

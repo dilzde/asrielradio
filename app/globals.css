@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 /* ────────────────────────────────────────────────────────
    app/globals.css  –  Asriel Radio 24/7
    Warm Cream Paper + High-Clarity Solid Black + Muted Gold Accent
@@ -117,7 +119,7 @@ button {
    ──────────────────────────────────────────────────────── */
 header.nav {
   background: var(--paper);
-  border-bottom: 1.5px solid var(--paper-line);
+  border-bottom: none;
   position: sticky;
   top: 0;
   width: 100%;
@@ -265,21 +267,33 @@ nav.links a:hover {
   background: var(--gold);
 }
 
-/* Big readable title fitting well on both PC and mobile */
+/* Big high-impact display title matching reference */
+.hero-title,
 .hero h1 {
-  color: var(--ink);
-  font-size: clamp(40px, 5.2vw, 60px);
-  line-height: 1.12;
-  font-weight: 600;
-  max-width: 14ch;
-  letter-spacing: -0.02em;
+  font-family: var(--font-bebas), "Bebas Neue", "Anton", "Oswald", "Impact", -apple-system-headline, sans-serif-condensed, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(68px, 7vw, 108px);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  font-weight: 400; /* Bebas Neue display weight */
+  margin-bottom: 24px;
+  max-width: 100%;
 }
 
-.hero h1 em {
-  font-style: normal;
-  color: var(--gold);
+.hero-title .hero-title-line1,
+.hero h1 span.hero-title-line1 {
   display: block;
-  font-weight: 600;
+  color: var(--ink); /* Crisp dark ink - DO NOT CHANGE COLOR */
+  word-break: break-word;
+}
+
+.hero-title .hero-title-line2,
+.hero h1 span.hero-title-line2,
+.hero h1 em {
+  display: block;
+  font-style: normal;
+  color: var(--gold); /* Warm gold - DO NOT CHANGE COLOR */
+  word-break: break-word;
 }
 
 .hero-meta {
@@ -1425,9 +1439,13 @@ footer.site-footer {
     padding: 36px 0 20px;
   }
 
+  .hero-title,
   .hero h1 {
-    font-size: clamp(28px, 7.5vw, 38px);
+    font-size: clamp(52px, 15vw, 76px);
+    line-height: 0.90;
+    letter-spacing: 0.015em;
     max-width: 100%;
+    margin-bottom: 20px;
   }
 
   .hero p.desc {

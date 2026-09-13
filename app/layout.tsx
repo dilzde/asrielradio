@@ -1,10 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 import Footer from "@/components/shared/Footer";
 import GlobalPlayer from "@/components/player/GlobalPlayer";
 import "./globals.css";
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bebas",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -61,7 +69,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className={bebasNeue.variable}>
         <header className="nav">
           <div className="nav-inner">
             <Link href="/" className="brand">

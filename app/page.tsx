@@ -57,7 +57,7 @@ export default async function HomePage() {
           <div>
             <LiveHeroStatus
               todaysPrograms={programs}
-              fallbackTitle="Morning Worship"
+              fallbackTitle="Charge Your Morning"
             />
 
             <p className="desc">
